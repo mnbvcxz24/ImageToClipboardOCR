@@ -2,6 +2,7 @@ import re
 import tkinter as tk
 from tkinter import messagebox
 from PIL import Image, ImageGrab, ImageTk
+import numpy as np
 from rapidocr_onnxruntime import RapidOCR
 
 
@@ -106,7 +107,7 @@ class ImageToClipboardOCR:
         try:
             if self.ocr is None:
                 self.ocr = RapidOCR()
-            result, _ = self.ocr(cropped.convert("RGB"))
+            result, _ = self.ocr(np.asarray(cropped.convert("RGB")))
             recognized_lines = []
             if result:
                 for item in result:
